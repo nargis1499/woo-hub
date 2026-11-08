@@ -270,7 +270,7 @@ final class Woo_Category_Products {
 										<svg class="!h-6 !w-6" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 7.5 12 3l8 4.5v9L12 21l-8-4.5v-9Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="m4.5 7.8 7.5 4.4 7.5-4.4M12 12.3V20" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>
 									<?php endif; ?>
 								</div>
-								<div class="!min-w-0 !text-sm !font-semibold !leading-6 !text-[var(--wcp-product-text)] sm:!text-[15px]">
+								<div class="!min-w-0 !text-[13px] !font-semibold !leading-6 !text-[var(--wcp-product-text)]">
 									<?php echo esc_html( $product->get_name() ); ?>
 								</div>
 							</div>
