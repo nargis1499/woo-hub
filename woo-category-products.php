@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Woo Category Products
  * Description: Display WooCommerce products from a selected product category with a responsive, Tailwind-friendly layout.
- * Version: 1.2.0
+ * Version: 1.2.1
  * Author: Foysal Hasan
  * Author URI: https://wa.me/8801521521499
  * Text Domain: woo-category-products
@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 final class Woo_Category_Products {
-	const VERSION = '1.2.0';
+	const VERSION = '1.2.1';
 	const OPTION  = 'woo_category_products_settings';
 	const DEFAULT_CATEGORY_COLOR = '#091b29';
 
@@ -23,7 +23,6 @@ final class Woo_Category_Products {
 		'category_text' => '#ffffff',
 		'product_bg' => '#ffffff',
 		'product_text' => '#202329',
-		'accent' => '#28b487',
 		'muted' => '#737b87',
 	);
 
@@ -152,7 +151,6 @@ final class Woo_Category_Products {
 			'category_text' => __( 'Category header text', 'woo-category-products' ),
 			'product_bg'    => __( 'Product card background', 'woo-category-products' ),
 			'product_text'  => __( 'Product card text', 'woo-category-products' ),
-			'accent'        => __( 'Buy button / accent', 'woo-category-products' ),
 			'muted'         => __( 'Secondary text', 'woo-category-products' ),
 		);
 		?>
@@ -235,7 +233,7 @@ final class Woo_Category_Products {
 			esc_attr( $settings['category_text'] ),
 			esc_attr( $settings['product_bg'] ),
 			esc_attr( $settings['product_text'] ),
-			esc_attr( $settings['accent'] ),
+			esc_attr( $category_color ),
 			esc_attr( $settings['muted'] )
 		);
 
