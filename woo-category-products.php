@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Woo Category Products
  * Description: Display WooCommerce products from a selected product category with a responsive, Tailwind-friendly layout.
- * Version: 1.0.4
+ * Version: 1.1.0
  * Author: Foysal Hasan
  * Author URI: https://wa.me/8801521521499
  * Text Domain: woo-category-products
@@ -14,12 +14,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 final class Woo_Category_Products {
-	const VERSION = '1.0.4';
+	const VERSION = '1.1.0';
 	const OPTION  = 'woo_category_products_settings';
+	const DEFAULT_CATEGORY_COLOR = '#091b29';
 
 	/** @var array<string, string> */
 	private $defaults = array(
-		'category_bg' => '#202329',
 		'category_text' => '#ffffff',
 		'product_bg' => '#ffffff',
 		'product_text' => '#202329',
@@ -32,6 +32,10 @@ final class Woo_Category_Products {
 		add_action( 'admin_menu', array( $this, 'add_settings_page' ) );
 		add_action( 'admin_init', array( $this, 'register_settings' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_assets' ) );
+		add_action( 'product_cat_add_form_fields', array( $this, 'render_category_color_add_field' ) );
+		add_action( 'product_cat_edit_form_fields', array( $this, 'render_category_color_edit_field' ) );
+		add_action( 'created_product_cat', array( $this, 'save_category_color' ) );
+		add_action( 'edited_product_cat', array( $this, 'save_category_color' ) );
 		add_shortcode( 'woo_category_products', array( $this, 'render_shortcode' ) );
 	}
 
@@ -45,12 +49,55 @@ final class Woo_Category_Products {
 	}
 
 	public function enqueue_admin_assets( $hook ) {
-		if ( 'settings_page_woo-category-products' !== $hook ) {
+		$screen = function_exists( 'get_current_screen' ) ? get_current_screen() : null;
+		$is_settings_page = 'settings_page_woo-category-products' === $hook;
+		$is_product_category_page = $screen && 'product_cat' === $screen->taxonomy;
+		if ( ! $is_settings_page && ! $is_product_category_page ) {
 			return;
 		}
+
 		wp_enqueue_style( 'wp-color-picker' );
 		wp_enqueue_script( 'wp-color-picker' );
 		wp_add_inline_script( 'wp-color-picker', "jQuery(function($){ $('.wcp-color-field').wpColorPicker(); });" );
+	}
+
+	public function render_category_color_add_field() {
+		?>
+		<div class="form-field term-wcp-category-color-wrap">
+			<label for="wcp-category-color"><?php esc_html_e( 'Woo Category Products header color', 'woo-category-products' ); ?></label>
+			<input class="wcp-color-field" id="wcp-category-color" name="wcp_category_color" type="text" value="<?php echo esc_attr( self::DEFAULT_CATEGORY_COLOR ); ?>" data-default-color="<?php echo esc_attr( self::DEFAULT_CATEGORY_COLOR ); ?>">
+			<p class="description"><?php esc_html_e( 'Choose the color for this category’s header bar in the Woo Category Products shortcode. Default: #091b29.', 'woo-category-products' ); ?></p>
+		</div>
+		<?php
+	}
+
+	public function render_category_color_edit_field( $term ) {
+		$color = sanitize_hex_color( get_term_meta( $term->term_id, '_wcp_category_color', true ) );
+		if ( ! $color ) {
+			$color = self::DEFAULT_CATEGORY_COLOR;
+		}
+		?>
+		<tr class="form-field term-wcp-category-color-wrap">
+			<th scope="row"><label for="wcp-category-color"><?php esc_html_e( 'Woo Category Products header color', 'woo-category-products' ); ?></label></th>
+			<td>
+				<input class="wcp-color-field" id="wcp-category-color" name="wcp_category_color" type="text" value="<?php echo esc_attr( $color ); ?>" data-default-color="<?php echo esc_attr( self::DEFAULT_CATEGORY_COLOR ); ?>">
+				<p class="description"><?php esc_html_e( 'Choose the color for this category’s header bar in the Woo Category Products shortcode. Default: #091b29.', 'woo-category-products' ); ?></p>
+			</td>
+		</tr>
+		<?php
+	}
+
+	public function save_category_color( $term_id ) {
+		if ( ! isset( $_POST['wcp_category_color'] ) || ( ! current_user_can( 'manage_product_terms' ) && ! current_user_can( 'edit_term', $term_id ) ) ) {
+			return;
+		}
+
+		$color = sanitize_hex_color( wp_unslash( $_POST['wcp_category_color'] ) );
+		if ( $color ) {
+			update_term_meta( $term_id, '_wcp_category_color', $color );
+		} else {
+			delete_term_meta( $term_id, '_wcp_category_color' );
+		}
 	}
 
 	public function add_settings_page() {
@@ -95,7 +142,6 @@ final class Woo_Category_Products {
 		}
 		$settings = $this->get_settings();
 		$fields = array(
-			'category_bg'   => __( 'Category header background', 'woo-category-products' ),
 			'category_text' => __( 'Category header text', 'woo-category-products' ),
 			'product_bg'    => __( 'Product card background', 'woo-category-products' ),
 			'product_text'  => __( 'Product card text', 'woo-category-products' ),
@@ -105,7 +151,7 @@ final class Woo_Category_Products {
 		?>
 		<div class="wrap">
 			<h1><?php esc_html_e( 'Woo Category Products', 'woo-category-products' ); ?></h1>
-			<p><?php esc_html_e( 'Choose the colors used by the category header and product rows. Layout and typography use your site’s Tailwind CSS.', 'woo-category-products' ); ?></p>
+			<p><?php esc_html_e( 'Set the category header text and product row colors here. Set each category’s header background color under Products → Categories. Layout and typography use your site’s Tailwind CSS.', 'woo-category-products' ); ?></p>
 			<form action="options.php" method="post">
 				<?php settings_fields( 'woo_category_products_group' ); ?>
 				<table class="form-table" role="presentation">
@@ -170,10 +216,14 @@ final class Woo_Category_Products {
 
 		wp_enqueue_style( 'woo-category-products-jakarta' );
 		$settings = $this->get_settings();
+		$category_color = sanitize_hex_color( get_term_meta( $term->term_id, '_wcp_category_color', true ) );
+		if ( ! $category_color ) {
+			$category_color = self::DEFAULT_CATEGORY_COLOR;
+		}
 		$instance_id = wp_unique_id( 'wcp-' );
 		$style = sprintf(
 			'--wcp-category-bg:%1$s;--wcp-category-text:%2$s;--wcp-product-bg:%3$s;--wcp-product-text:%4$s;--wcp-accent:%5$s;--wcp-muted:%6$s;font-family:"Plus Jakarta Sans",ui-sans-serif,system-ui,sans-serif;',
-			esc_attr( $settings['category_bg'] ),
+			esc_attr( $category_color ),
 			esc_attr( $settings['category_text'] ),
 			esc_attr( $settings['product_bg'] ),
 			esc_attr( $settings['product_text'] ),

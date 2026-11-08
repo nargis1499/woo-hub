@@ -28,4 +28,4 @@ The category heading is plain text (not a link). Its description is shown under 
 
 ## Color settings
 
-Go to **Settings → Woo Category Products** to customize the category header background/text, product card background/text, button accent, and secondary text colors. The default Buy button accent is `#28b487`. The font is Plus Jakarta Sans; layout, typography, spacing, and responsive behavior use Tailwind classes.
+Set a product category’s header background in **Products → Categories** using the **Woo Category Products header color** picker. The default is `#091b29`. Use **Settings → Woo Category Products** to customize the category header text, product card background/text, button accent, and secondary text colors. The default Buy button accent is `#28b487`. The font is Plus Jakarta Sans; layout, typography, spacing, and responsive behavior use Tailwind classes.
