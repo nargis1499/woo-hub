@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Woo Category Products
  * Description: Display WooCommerce products from a selected product category with a responsive, Tailwind-friendly layout.
- * Version: 1.0.0
+ * Version: 1.0.1
  * Author: Woo Hub
  * Text Domain: woo-category-products
  * Requires Plugins: woocommerce
@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 final class Woo_Category_Products {
-	const VERSION = '1.0.0';
+	const VERSION = '1.0.1';
 	const OPTION  = 'woo_category_products_settings';
 
 	/** @var array<string, string> */
@@ -22,7 +22,7 @@ final class Woo_Category_Products {
 		'category_text' => '#ffffff',
 		'product_bg' => '#ffffff',
 		'product_text' => '#202329',
-		'accent' => '#db8727',
+		'accent' => '#28b487',
 		'muted' => '#737b87',
 	);
 
@@ -183,7 +183,7 @@ final class Woo_Category_Products {
 		ob_start();
 		?>
 		<section id="<?php echo esc_attr( $instance_id ); ?>" class="woo-category-products !my-6 !w-full !space-y-2 sm:!my-8" style="<?php echo esc_attr( $style ); ?>" aria-label="<?php echo esc_attr( sprintf( __( 'Products in %s', 'woo-category-products' ), $term->name ) ); ?>">
-			<div class="!grid !grid-cols-1 !items-center !gap-2 !rounded-xl !px-4 !py-4 !shadow-sm sm:!grid-cols-[minmax(0,1fr)_9rem_10rem] sm:!gap-4 sm:!px-6" style="background-color:var(--wcp-category-bg);color:var(--wcp-category-text)">
+			<div class="!grid !grid-cols-1 !items-center !gap-2 !rounded-xl !px-4 !py-4 !shadow-sm sm:!grid-cols-[minmax(0,1fr)_9rem_10rem_6.5rem] sm:!gap-4 sm:!px-5" style="background-color:var(--wcp-category-bg);color:var(--wcp-category-text)">
 				<div class="!min-w-0">
 					<a class="!text-lg !font-extrabold !leading-tight !no-underline !text-[var(--wcp-category-text)] hover:!opacity-85 sm:!text-xl" href="<?php echo esc_url( $archive_url ); ?>"><?php echo esc_html( $term->name ); ?></a>
 					<?php if ( trim( wp_strip_all_tags( $term->description ) ) ) : ?>
@@ -192,6 +192,7 @@ final class Woo_Category_Products {
 				</div>
 				<div class="!hidden !text-sm !font-bold !tracking-wide sm:!block"><?php esc_html_e( 'In Stock', 'woo-category-products' ); ?></div>
 				<div class="!hidden !text-sm !font-bold !tracking-wide sm:!block"><?php esc_html_e( 'Price', 'woo-category-products' ); ?></div>
+				<div class="!hidden sm:!block" aria-hidden="true"></div>
 			</div>
 
 			<?php if ( $query->have_posts() ) : ?>
@@ -209,7 +210,7 @@ final class Woo_Category_Products {
 						// Stable per-product pseudo-random count, so it looks random but does not change on every page load.
 						$sold = 100 + ( abs( crc32( 'wcp-sold-' . $product_id ) ) % 9900 );
 						?>
-						<article class="!grid !grid-cols-[minmax(0,1fr)_auto] !items-center !gap-x-3 !gap-y-3 !rounded-xl !p-3 !shadow-sm !ring-1 !ring-black/5 sm:!grid-cols-[minmax(0,1fr)_9rem_10rem_auto] sm:!gap-4 sm:!px-5 sm:!py-4" style="background-color:var(--wcp-product-bg);color:var(--wcp-product-text)">
+						<article class="!grid !grid-cols-[minmax(0,1fr)_auto] !items-center !gap-x-3 !gap-y-3 !rounded-xl !p-3 !shadow-sm !ring-1 !ring-black/5 sm:!grid-cols-[minmax(0,1fr)_9rem_10rem_6.5rem] sm:!gap-4 sm:!px-5 sm:!py-4" style="background-color:var(--wcp-product-bg);color:var(--wcp-product-text)">
 							<div class="!flex !min-w-0 !items-center !gap-3 sm:!gap-4">
 								<div class="!flex !h-11 !w-11 !shrink-0 !items-center !justify-center !overflow-hidden !rounded-xl !bg-slate-100 !text-slate-500 sm:!h-12 sm:!w-12">
 									<?php if ( $product->get_image_id() ) : ?>
@@ -218,9 +219,9 @@ final class Woo_Category_Products {
 										<svg class="!h-6 !w-6" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 7.5 12 3l8 4.5v9L12 21l-8-4.5v-9Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="m4.5 7.8 7.5 4.4 7.5-4.4M12 12.3V20" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>
 									<?php endif; ?>
 								</div>
-								<a href="<?php echo esc_url( get_permalink( $product_id ) ); ?>" class="!min-w-0 !text-sm !font-semibold !leading-6 !no-underline !text-[var(--wcp-product-text)] hover:!underline sm:!text-[15px]">
+								<div class="!min-w-0 !text-sm !font-semibold !leading-6 !text-[var(--wcp-product-text)] sm:!text-[15px]">
 									<?php echo esc_html( $product->get_name() ); ?>
-								</a>
+								</div>
 							</div>
 
 							<div class="!col-start-1 !row-start-2 !pl-14 !text-sm sm:!col-auto sm:!row-auto sm:!pl-0">

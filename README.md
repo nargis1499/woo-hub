@@ -22,8 +22,8 @@ The `slug` alias is also supported:
 [woo_category_products slug="gmail-accounts-new"]
 ```
 
-The category heading links to that category's archive. Its description is shown under the heading when one is set. Each published, visible product in the category is shown with its image (or a fallback icon), name, unlimited stock label, a stable pseudo-random sold count, starting price, and a Buy link. The Buy link points to the product page with `qc_cart_product_id=<product-id>` in its query string.
+The category heading links to that category's archive. Its description is shown under the heading when one is set. Each published, visible product in the category is shown with its image (or a fallback icon), non-linked name, unlimited stock label, a stable pseudo-random sold count, starting price, and a Buy link. The Buy link points to the product page with `qc_cart_product_id=<product-id>` in its query string.
 
 ## Color settings
 
-Go to **Settings → Woo Category Products** to customize the category header background/text, product card background/text, button accent, and secondary text colors. The font is Plus Jakarta Sans; layout, typography, spacing, and responsive behavior use Tailwind classes.
+Go to **Settings → Woo Category Products** to customize the category header background/text, product card background/text, button accent, and secondary text colors. The default Buy button accent is `#28b487`. The font is Plus Jakarta Sans; layout, typography, spacing, and responsive behavior use Tailwind classes.
