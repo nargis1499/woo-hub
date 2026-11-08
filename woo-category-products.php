@@ -2,8 +2,9 @@
 /**
  * Plugin Name: Woo Category Products
  * Description: Display WooCommerce products from a selected product category with a responsive, Tailwind-friendly layout.
- * Version: 1.0.1
- * Author: Woo Hub
+ * Version: 1.0.4
+ * Author: Foysal Hasan
+ * Author URI: https://wa.me/8801521521499
  * Text Domain: woo-category-products
  * Requires Plugins: woocommerce
  */
@@ -13,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 final class Woo_Category_Products {
-	const VERSION = '1.0.1';
+	const VERSION = '1.0.4';
 	const OPTION  = 'woo_category_products_settings';
 
 	/** @var array<string, string> */
@@ -119,6 +120,8 @@ final class Woo_Category_Products {
 			</form>
 			<hr>
 			<p><strong><?php esc_html_e( 'Shortcode:', 'woo-category-products' ); ?></strong> <code>[woo_category_products category="your-category-slug"]</code></p>
+			<hr>
+			<p><?php esc_html_e( 'Plugin by Foysal Hasan.', 'woo-category-products' ); ?> <?php esc_html_e( 'WhatsApp:', 'woo-category-products' ); ?> <a href="https://wa.me/8801521521499" target="_blank" rel="noopener noreferrer" aria-label="<?php esc_attr_e( 'Chat with Foysal Hasan on WhatsApp at +8801521521499', 'woo-category-products' ); ?>">+8801521521499</a></p>
 		</div>
 		<?php
 	}
@@ -167,8 +170,6 @@ final class Woo_Category_Products {
 
 		wp_enqueue_style( 'woo-category-products-jakarta' );
 		$settings = $this->get_settings();
-		$archive_url = get_term_link( $term );
-		$archive_url = is_wp_error( $archive_url ) ? '#' : $archive_url;
 		$instance_id = wp_unique_id( 'wcp-' );
 		$style = sprintf(
 			'--wcp-category-bg:%1$s;--wcp-category-text:%2$s;--wcp-product-bg:%3$s;--wcp-product-text:%4$s;--wcp-accent:%5$s;--wcp-muted:%6$s;font-family:"Plus Jakarta Sans",ui-sans-serif,system-ui,sans-serif;',
@@ -185,7 +186,7 @@ final class Woo_Category_Products {
 		<section id="<?php echo esc_attr( $instance_id ); ?>" class="woo-category-products !my-6 !w-full !space-y-2 sm:!my-8" style="<?php echo esc_attr( $style ); ?>" aria-label="<?php echo esc_attr( sprintf( __( 'Products in %s', 'woo-category-products' ), $term->name ) ); ?>">
 			<div class="!grid !grid-cols-1 !items-center !gap-2 !rounded-xl !px-4 !py-4 !shadow-sm sm:!grid-cols-[minmax(0,1fr)_9rem_10rem_6.5rem] sm:!gap-4 sm:!px-5" style="background-color:var(--wcp-category-bg);color:var(--wcp-category-text)">
 				<div class="!min-w-0">
-					<a class="!text-lg !font-extrabold !leading-tight !no-underline !text-[var(--wcp-category-text)] hover:!opacity-85 sm:!text-xl" href="<?php echo esc_url( $archive_url ); ?>"><?php echo esc_html( $term->name ); ?></a>
+					<span class="!text-lg !font-extrabold !leading-tight !text-[var(--wcp-category-text)] sm:!text-xl"><?php echo esc_html( $term->name ); ?></span>
 					<?php if ( trim( wp_strip_all_tags( $term->description ) ) ) : ?>
 						<p class="!mb-0 !mt-1 !text-xs !leading-relaxed !opacity-75 sm:!text-sm"><?php echo esc_html( wp_strip_all_tags( $term->description ) ); ?></p>
 					<?php endif; ?>
@@ -230,7 +231,7 @@ final class Woo_Category_Products {
 							</div>
 
 							<div class="!col-start-2 !row-start-2 !text-right sm:!col-auto sm:!row-auto sm:!text-left">
-								<div class="!text-xs !leading-5 !text-[var(--wcp-muted)]"><?php esc_html_e( 'Price per pc', 'woo-category-products' ); ?></div>
+								<div class="!text-xs !leading-5 !text-[var(--wcp-muted)]"><?php esc_html_e( 'Price per item', 'woo-category-products' ); ?></div>
 								<div class="!text-sm !font-bold !leading-5"><?php esc_html_e( 'from', 'woo-category-products' ); ?> <?php echo wp_kses_post( $price_html ); ?></div>
 							</div>
 
