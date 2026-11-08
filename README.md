@@ -1,6 +1,8 @@
 # Woo Category Products
 
-A lightweight WordPress plugin that displays published WooCommerce products from one product category in a responsive, Tailwind CSS-friendly listing.
+A lightweight WordPress plugin by Foysal Hasan that displays published WooCommerce products from one product category in a responsive, Tailwind CSS-friendly listing.
+
+WhatsApp: [+8801521521499](https://wa.me/8801521521499)
 
 ## Install
 
@@ -22,7 +24,7 @@ The `slug` alias is also supported:
 [woo_category_products slug="gmail-accounts-new"]
 ```
 
-The category heading links to that category's archive. Its description is shown under the heading when one is set. Each published, visible product in the category is shown with its image (or a fallback icon), non-linked name, unlimited stock label, a stable pseudo-random sold count, starting price, and a Buy link. The Buy link points to the product page with `qc_cart_product_id=<product-id>` in its query string.
+The category heading is plain text (not a link). Its description is shown under the heading when one is set. Each published, visible product in the category is shown with its image (or a fallback icon), non-linked name, unlimited stock label, a stable pseudo-random sold count, starting price, and a Buy link. The Buy link points to the product page with `qc_cart_product_id=<product-id>` in its query string.
 
 ## Color settings
 
