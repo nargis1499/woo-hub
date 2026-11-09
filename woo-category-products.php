@@ -240,18 +240,18 @@ final class Woo_Category_Products {
 		ob_start();
 		?>
 		<section id="<?php echo esc_attr( $instance_id ); ?>" class="woo-category-products !my-6 !w-full !space-y-2 sm:!my-8" style="<?php echo esc_attr( $style ); ?>" aria-label="<?php echo esc_attr( sprintf( __( 'Products in %s', 'woo-category-products' ), $term->name ) ); ?>">
-			<div class="!grid !grid-cols-1 !items-center !gap-2 !rounded-xl !px-4 !py-4 !shadow-sm md:!grid-cols-[minmax(0,1fr)_9rem_10rem_10rem] sm:!gap-4 sm:!px-5" style="background-color:var(--wcp-category-bg);color:var(--wcp-category-text)">
+			<div class="!grid !grid-cols-1 !items-center !gap-2 !rounded-xl !px-4 !py-4 !shadow-sm xl:!grid-cols-[minmax(0,1fr)_9rem_10rem_10rem] sm:!gap-4 sm:!px-5" style="background-color:var(--wcp-category-bg);color:var(--wcp-category-text)">
 				<div class="!min-w-0">
 					<span class="!text-lg !font-extrabold !leading-tight !text-[var(--wcp-category-text)] sm:!text-xl"><?php echo esc_html( $term->name ); ?></span>
 					<?php if ( trim( wp_strip_all_tags( $term->description ) ) ) : ?>
 						<p class="!mb-0 !mt-1 !text-xs !leading-relaxed !opacity-75 sm:!text-sm"><?php echo esc_html( wp_strip_all_tags( $term->description ) ); ?></p>
 					<?php endif; ?>
 				</div>
-				<div class="!hidden !text-sm !font-bold !tracking-wide md:!block"><?php esc_html_e( 'In Stock', 'woo-category-products' ); ?></div>
-				<div class="!hidden !text-sm !font-bold !tracking-wide md:!block"><?php esc_html_e( 'Price', 'woo-category-products' ); ?></div>
+				<div class="!hidden !text-sm !font-bold !tracking-wide xl:!block"><?php esc_html_e( 'In Stock', 'woo-category-products' ); ?></div>
+				<div class="!hidden !text-sm !font-bold !tracking-wide xl:!block"><?php esc_html_e( 'Price', 'woo-category-products' ); ?></div>
 				<div class="!w-full">
 					<label class="!sr-only" for="<?php echo esc_attr( $instance_id ); ?>-sort"><?php esc_html_e( 'Sort products by price', 'woo-category-products' ); ?></label>
-					<select id="<?php echo esc_attr( $instance_id ); ?>-sort" class="wcp-sort-select !w-full !rounded-lg !border !border-white/25 !bg-white !px-2 !py-2 !text-xs !font-semibold !text-slate-900 !shadow-sm focus:!outline-none focus:!ring-2 focus:!ring-white/50" aria-label="<?php esc_attr_e( 'Sort products by price', 'woo-category-products' ); ?>">
+					<select id="<?php echo esc_attr( $instance_id ); ?>-sort" class="wcp-sort-select !w-full !max-w-64 !rounded-lg !border !border-white/25 !bg-white !px-2 !py-2 !text-xs !font-semibold !text-slate-900 !shadow-sm focus:!outline-none focus:!ring-2 focus:!ring-white/50" aria-label="<?php esc_attr_e( 'Sort products by price', 'woo-category-products' ); ?>">
 						<option value="asc" selected><?php esc_html_e( 'Price: Low to high', 'woo-category-products' ); ?></option>
 						<option value="desc"><?php esc_html_e( 'Price: High to low', 'woo-category-products' ); ?></option>
 					</select>
@@ -276,8 +276,8 @@ final class Woo_Category_Products {
 						// Stable per-product pseudo-random count, so it looks random but does not change on every page load.
 						$sold = 100 + ( abs( crc32( 'wcp-sold-' . $product_id ) ) % 9900 );
 						?>
-						<article class="!grid !grid-cols-[minmax(0,1fr)_auto] !items-center !gap-x-3 !gap-y-3 !rounded-xl !p-3 !shadow-sm !ring-1 !ring-black/5 md:!grid-cols-[minmax(0,1fr)_9rem_10rem_10rem] sm:!gap-4 sm:!px-5 sm:!py-4" data-wcp-price="<?php echo esc_attr( $sort_price ); ?>" data-wcp-order="<?php echo esc_attr( $current_sort_order ); ?>" style="background-color:var(--wcp-product-bg);color:var(--wcp-product-text)">
-							<div class="!flex !min-w-0 !items-center !gap-3 sm:!gap-4">
+						<article class="!grid !grid-cols-2 !items-center !gap-x-3 !gap-y-3 !rounded-xl !p-3 !shadow-sm !ring-1 !ring-black/5 xl:!grid-cols-[minmax(0,1fr)_9rem_10rem_10rem] sm:!gap-4 sm:!px-5 sm:!py-4" data-wcp-price="<?php echo esc_attr( $sort_price ); ?>" data-wcp-order="<?php echo esc_attr( $current_sort_order ); ?>" style="background-color:var(--wcp-product-bg);color:var(--wcp-product-text)">
+							<div class="!col-span-2 !flex !min-w-0 !items-center !gap-3 sm:!gap-4 xl:!col-span-1">
 								<div class="!flex !h-11 !w-11 !shrink-0 !items-center !justify-center !overflow-hidden !rounded-xl !bg-slate-100 !text-slate-500 sm:!h-12 sm:!w-12">
 									<?php if ( $product->get_image_id() ) : ?>
 										<?php echo wp_kses_post( $product->get_image( 'thumbnail', array( 'class' => '!h-full !w-full !object-cover' ) ) ); ?>
@@ -290,17 +290,17 @@ final class Woo_Category_Products {
 								</div>
 							</div>
 
-							<div class="!col-start-1 !row-start-2 !pl-14 !text-sm md:!col-auto md:!row-auto md:!pl-0">
+							<div class="!col-start-1 !row-start-2 !text-sm xl:!col-auto xl:!row-auto xl:!pl-0">
 								<div class="!font-semibold !leading-5"><?php esc_html_e( 'Unlimited', 'woo-category-products' ); ?></div>
 								<div class="!mt-0.5 !text-xs !leading-5 !text-[var(--wcp-muted)]"><?php echo esc_html( sprintf( __( 'Sold %s pieces', 'woo-category-products' ), number_format_i18n( $sold ) ) ); ?></div>
 							</div>
 
-							<div class="!col-start-2 !row-start-2 !text-right md:!col-auto md:!row-auto md:!text-left">
+							<div class="!col-start-2 !row-start-2 !text-right xl:!col-auto xl:!row-auto xl:!text-left">
 								<div class="!text-xs !leading-5 !text-[var(--wcp-muted)]"><?php esc_html_e( 'Price per item', 'woo-category-products' ); ?></div>
 								<div class="!text-sm !font-bold !leading-5"><?php esc_html_e( 'from', 'woo-category-products' ); ?> <?php echo wp_kses_post( $price_html ); ?></div>
 							</div>
 
-							<div class="!col-span-2 !flex !justify-end md:!col-auto">
+							<div class="!col-span-2 !flex !justify-end xl:!col-auto">
 								<a href="<?php echo esc_url( $buy_url ); ?>" class="!inline-flex !min-h-10 !items-center !justify-center !gap-2 !rounded-lg !px-4 !text-sm !font-bold !text-white !no-underline !shadow-sm !transition hover:!brightness-95 focus:!outline-none focus:!ring-2 focus:!ring-offset-2" style="background-color:var(--wcp-accent)" aria-label="<?php echo esc_attr( sprintf( __( 'Buy %s', 'woo-category-products' ), $product->get_name() ) ); ?>">
 									<svg class="!h-4 !w-4" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 4h2l2.2 11.1a2 2 0 0 0 2 1.6h8.3a2 2 0 0 0 1.9-1.4L21 9H7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="10" cy="20" r="1.3" fill="currentColor"/><circle cx="18" cy="20" r="1.3" fill="currentColor"/></svg>
 									<?php esc_html_e( 'Buy', 'woo-category-products' ); ?>
