@@ -276,13 +276,13 @@ final class Woo_Category_Products {
 						// Stable per-product pseudo-random count, so it looks random but does not change on every page load.
 						$sold = 100 + ( abs( crc32( 'wcp-sold-' . $product_id ) ) % 9900 );
 						?>
-						<article class="!grid !grid-cols-2 !items-center !gap-x-3 !gap-y-3 !rounded-xl !p-3 !shadow-sm !ring-1 !ring-black/5 xl:!grid-cols-[minmax(0,1fr)_9rem_10rem_10rem] sm:!gap-4 sm:!px-5 sm:!py-4" data-wcp-price="<?php echo esc_attr( $sort_price ); ?>" data-wcp-order="<?php echo esc_attr( $current_sort_order ); ?>" style="background-color:var(--wcp-product-bg);color:var(--wcp-product-text)">
+						<article class="!grid !grid-cols-2 !items-center !gap-x-3 !gap-y-3 !rounded-xl !p-4 !shadow-sm !ring-1 !ring-black/5 xl:!grid-cols-[minmax(0,1fr)_9rem_10rem_10rem] sm:!gap-4 sm:!p-6 xl:!px-5 xl:!py-4" data-wcp-price="<?php echo esc_attr( $sort_price ); ?>" data-wcp-order="<?php echo esc_attr( $current_sort_order ); ?>" style="background-color:var(--wcp-product-bg);color:var(--wcp-product-text)">
 							<div class="!col-span-2 !flex !min-w-0 !items-center !gap-3 sm:!gap-4 xl:!col-span-1">
-								<div class="!flex !h-11 !w-11 !shrink-0 !items-center !justify-center !overflow-hidden !rounded-xl !bg-slate-100 !text-slate-500 sm:!h-12 sm:!w-12">
+								<div class="!flex !h-16 !w-16 !shrink-0 !items-center !justify-center !overflow-hidden !rounded-xl !bg-slate-100 !text-slate-500 sm:!h-[72px] sm:!w-[72px] xl:!h-12 xl:!w-12">
 									<?php if ( $product->get_image_id() ) : ?>
 										<?php echo wp_kses_post( $product->get_image( 'thumbnail', array( 'class' => '!h-full !w-full !object-cover' ) ) ); ?>
 									<?php else : ?>
-										<svg class="!h-6 !w-6" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 7.5 12 3l8 4.5v9L12 21l-8-4.5v-9Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="m4.5 7.8 7.5 4.4 7.5-4.4M12 12.3V20" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>
+										<svg class="!h-8 !w-8 xl:!h-6 xl:!w-6" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 7.5 12 3l8 4.5v9L12 21l-8-4.5v-9Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="m4.5 7.8 7.5 4.4 7.5-4.4M12 12.3V20" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>
 									<?php endif; ?>
 								</div>
 								<div class="!min-w-0 !text-[13px] !font-semibold !leading-6 !text-[var(--wcp-product-text)]">
@@ -301,8 +301,8 @@ final class Woo_Category_Products {
 							</div>
 
 							<div class="!col-span-2 !flex !justify-end xl:!col-auto">
-								<a href="<?php echo esc_url( $buy_url ); ?>" class="!inline-flex !min-h-10 !items-center !justify-center !gap-2 !rounded-lg !px-4 !text-sm !font-bold !text-white !no-underline !shadow-sm !transition hover:!brightness-95 focus:!outline-none focus:!ring-2 focus:!ring-offset-2" style="background-color:var(--wcp-accent)" aria-label="<?php echo esc_attr( sprintf( __( 'Buy %s', 'woo-category-products' ), $product->get_name() ) ); ?>">
-									<svg class="!h-4 !w-4" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 4h2l2.2 11.1a2 2 0 0 0 2 1.6h8.3a2 2 0 0 0 1.9-1.4L21 9H7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="10" cy="20" r="1.3" fill="currentColor"/><circle cx="18" cy="20" r="1.3" fill="currentColor"/></svg>
+								<a href="<?php echo esc_url( $buy_url ); ?>" class="!inline-flex !min-h-12 !w-full !items-center !justify-center !gap-2 !rounded-lg !px-4 !text-base !font-bold !text-white !no-underline !shadow-sm !transition hover:!brightness-95 focus:!outline-none focus:!ring-2 focus:!ring-offset-2 sm:!min-h-14 sm:!text-lg xl:!min-h-10 xl:!w-auto xl:!text-sm" style="background-color:var(--wcp-accent)" aria-label="<?php echo esc_attr( sprintf( __( 'Buy %s', 'woo-category-products' ), $product->get_name() ) ); ?>">
+									<svg class="!h-5 !w-5 xl:!h-4 xl:!w-4" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 4h2l2.2 11.1a2 2 0 0 0 2 1.6h8.3a2 2 0 0 0 1.9-1.4L21 9H7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="10" cy="20" r="1.3" fill="currentColor"/><circle cx="18" cy="20" r="1.3" fill="currentColor"/></svg>
 									<?php esc_html_e( 'Buy', 'woo-category-products' ); ?>
 								</a>
 							</div>
